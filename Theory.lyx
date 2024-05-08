@@ -1,0 +1,1061 @@
+#LyX 2.3 created this file. For more info see http://www.lyx.org/
+\lyxformat 544
+\begin_document
+\begin_header
+\save_transient_properties true
+\origin unavailable
+\textclass article
+\use_default_options true
+\maintain_unincluded_children false
+\language english
+\language_package default
+\inputencoding auto
+\fontencoding global
+\font_roman "default" "default"
+\font_sans "default" "default"
+\font_typewriter "default" "default"
+\font_math "auto" "auto"
+\font_default_family default
+\use_non_tex_fonts false
+\font_sc false
+\font_osf false
+\font_sf_scale 100 100
+\font_tt_scale 100 100
+\use_microtype false
+\use_dash_ligatures true
+\graphics default
+\default_output_format default
+\output_sync 0
+\bibtex_command default
+\index_command default
+\paperfontsize default
+\use_hyperref false
+\papersize default
+\use_geometry false
+\use_package amsmath 1
+\use_package amssymb 1
+\use_package cancel 1
+\use_package esint 1
+\use_package mathdots 1
+\use_package mathtools 1
+\use_package mhchem 1
+\use_package stackrel 1
+\use_package stmaryrd 1
+\use_package undertilde 1
+\cite_engine basic
+\cite_engine_type default
+\biblio_style plain
+\use_bibtopic false
+\use_indices false
+\paperorientation portrait
+\suppress_date false
+\justification true
+\use_refstyle 1
+\use_minted 0
+\index Index
+\shortcut idx
+\color #008000
+\end_index
+\secnumdepth 3
+\tocdepth 3
+\paragraph_separation indent
+\paragraph_indentation default
+\is_math_indent 0
+\math_numbering_side default
+\quotes_style english
+\dynamic_quotes 0
+\papercolumns 1
+\papersides 1
+\paperpagestyle default
+\tracking_changes false
+\output_changes false
+\html_math_output 0
+\html_css_as_file 0
+\html_be_strict false
+\end_header
+
+\begin_body
+
+\begin_layout Part*
+Monte Carlo Method
+\end_layout
+
+\begin_layout Section*
+Background
+\end_layout
+
+\begin_layout Standard
+The equation governing this is:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+\frac{1}{c}\frac{d}{dt}I\left(r,\hat{s}\right)+\frac{d}{d\hat{s}}I\left(r,\hat{s}\right)+\mu_{t}I\left(r,\hat{s}\right)-\mu_{s}\intop_{4\pi}I\left(r,\hat{s'}\right)p\left(\hat{s'},\hat{s}\right)d\Omega'=\epsilon\left(r,\hat{s}\right)
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Section*
+Solution
+\end_layout
+
+\begin_layout Standard
+Creating the photon package and propagating it, with probabilistic interaction.
+\end_layout
+
+\begin_layout Standard
+Once the energy of a package 
+\begin_inset Formula $W$
+\end_inset
+
+ reaches a certain threshold we perform:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+W\leftarrow\begin{cases}
+mW & w.p.\frac{1}{m}\\
+0 & otherwise
+\end{cases}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Part*
+Diffusion Method
+\end_layout
+
+\begin_layout Section*
+Background
+\end_layout
+
+\begin_layout Subsection*
+RTE to Diffusion
+\end_layout
+
+\begin_layout Standard
+Using the decomposition to spherical harmonics, we notice that the first
+ 2 terms describe the energy density and the flux density.
+ If we assume diffusion, these are the only 2 orders we care about.
+\end_layout
+
+\begin_layout Standard
+This measn that we can approxiame:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+I\left(r,\hat{s}\right)\approx\frac{U\left(r\right)}{4\pi}+\frac{3}{4\pi}J\left(r\right)\cdot\hat{s}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Notice that 
+\begin_inset Formula $J$
+\end_inset
+
+ is not dependent on 
+\begin_inset Formula $\hat{s}$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+In this case, we will find the 2 equations governing by first integrating
+ 
+\begin_inset Formula $\intop_{4\pi}d\Omega$
+\end_inset
+
+ and second integrating 
+\begin_inset Formula $\intop_{4\pi}\hat{s}d\Omega$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+The first:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+\frac{1}{c}\frac{d}{dt}U+\mu_{a}U+\nabla\cdot J=S_{0}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+The second:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+\frac{1}{c}\frac{d}{dt}J+\left(\mu_{a}+\mu_{s}'\right)J+\frac{1}{3}\nabla U=0
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+If we assume that 
+\begin_inset Formula $\frac{1}{c\left(\mu_{a}+\mu_{s}'\right)}\left|\frac{d}{dt}J\right|\ll\left|J\right|$
+\end_inset
+
+ then we can write:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+J=-D\nabla U
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Where:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+D=\frac{1}{3\left(\mu_{a}+\mu_{s}'\right)}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Thus:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Box Boxed
+position "t"
+hor_pos "c"
+has_inner_box 1
+inner_pos "t"
+use_parbox 0
+use_makebox 0
+width "100col%"
+special "none"
+height "1in"
+height_special "totalheight"
+thickness "0.4pt"
+separation "3pt"
+shadowsize "4pt"
+framecolor "black"
+backgroundcolor "none"
+status open
+
+\begin_layout Plain Layout
+\begin_inset Formula 
+\[
+\frac{1}{c}\frac{d}{dt}U+\mu_{a}U-\nabla\cdot\left(D\nabla U\right)=S_{0}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+If 
+\begin_inset Formula $D$
+\end_inset
+
+ is constant:
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Formula 
+\[
+\frac{1}{c}\frac{d}{dt}U+\mu_{a}U-D\nabla^{2}U=S_{0}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection*
+Green function
+\end_layout
+
+\begin_layout Standard
+For time domain we get:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+G\propto\frac{e^{-\mu_{a}c_{0}\left(t-t'\right)}}{\left(t-t'\right)^{3/2}}e^{-\frac{\left|r-r'\right|^{2}}{4Dc_{0}\left(t-t'\right)}}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+For frequency domain:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+G=\frac{e^{i\sqrt{-\frac{\mu_{a}}{D}+i\frac{\omega}{Dc_{0}}}\left|r-r'\right|}}{4\pi\left|r-r'\right|}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+We can notice that for low frequencies we get the 
+\begin_inset Formula $\mu_{eff}=\sqrt{\frac{\mu_{a}}{D}}=\sqrt{3\mu_{a}\left(\mu_{a}+\mu_{s}'\right)}$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection*
+Boundary condition
+\end_layout
+
+\begin_layout Standard
+For index matched media (Robin boundary condition):
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+U-2J\cdot\hat{n}=0
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Section*
+Point source approximation for external illumination
+\end_layout
+
+\begin_layout Standard
+We assume that at 
+\begin_inset Formula $l'=\frac{1}{\mu_{a}+\mu_{s}'}=\frac{1}{\mu_{a}+\mu_{s}\left(1-g\right)}$
+\end_inset
+
+ the light is diffusive.
+\end_layout
+
+\begin_layout Standard
+Thus a pencil beam at 
+\begin_inset Formula $0$
+\end_inset
+
+ is like a diffusive source at 
+\begin_inset Formula $l'$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+Using Robin boundary condition, and 
+\begin_inset Formula $J=-D\nabla U$
+\end_inset
+
+:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+U-2D\frac{d}{dz}U=0
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Using taylor expansion and 
+\begin_inset Formula $r=z_{b}=-2D$
+\end_inset
+
+:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+U\left(-2D\right)-2D\frac{d}{dz}U\left(-2D\right)=0\Rightarrow U\left(-2D\right)\approx0
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+This is a new boundary condition we will use.
+ Using the method of images.
+ Thus have the pencil source as a diffusive source at 
+\begin_inset Formula $z=l'$
+\end_inset
+
+, and we add an opposite source at 
+\begin_inset Formula $z=-l'-4D$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+Thus the solution is:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+U=\frac{1}{4\pi D}\left[\frac{e^{-\mu_{eff}r_{1}}}{r_{1}}-\frac{e^{-\mu_{eff}r_{2}}}{r_{2}}\right]
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+=\frac{1}{4\pi D}\left[\frac{e^{-\mu_{eff}\sqrt{\left(z-z_{0}\right)^{2}+\rho^{2}}}}{\sqrt{\left(z-z_{0}\right)^{2}+\rho^{2}}}-\frac{e^{-\mu_{eff}\sqrt{\left(z+z_{0}+2z_{b}\right)^{2}+\rho^{2}}}}{\sqrt{\left(z+z_{0}+2z_{b}\right)^{2}+\rho^{2}}}\right]
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Aside: When does 
+\begin_inset Formula $z_{0}=-z_{0}-2z_{b}$
+\end_inset
+
+ This forces 
+\begin_inset Formula $z_{0}=-z_{b}$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+z_{0}=l'=\frac{1}{\left(\mu_{a}+\mu_{s}'\right)}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+z_{b}=2D=\frac{2}{3\left(\mu_{a}+\mu_{s}'\right)}\Rightarrow-z_{0}-2z_{b}=-\frac{1}{\left(\mu_{a}+\mu_{s}'\right)}\left[1+\frac{4}{3}\right]=-\frac{7}{3\left(\mu_{a}+\mu_{s}'\right)}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+\Rightarrow l'=-D
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+\Rightarrow\frac{1}{\left(\mu_{a}+\mu_{s}'\right)}=-\frac{1}{3\left(\mu_{a}+\mu_{s}'\right)}=0
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+\Rightarrow\frac{1}{\left(\mu_{a}+\mu_{s}'\right)}=0
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+\Rightarrow\mu_{a}+\mu_{s}'=\infty
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+We have seen that we reach results for relatively high 
+\begin_inset Formula $\mu_{a},\mu_{s}$
+\end_inset
+
+.
+ (which causes the problem with the k-wave reconstruction).
+ A better regression is needed.
+\end_layout
+
+\begin_layout Part*
+1D Tests
+\end_layout
+
+\begin_layout Section*
+Test A
+\end_layout
+
+\begin_layout Standard
+Using 
+\begin_inset Formula $N_{x}=N_{y}=150$
+\end_inset
+
+, 
+\begin_inset Formula $dx=dy=0.1mm$
+\end_inset
+
+.
+ Using full side illumination with isotropic illumination.
+\end_layout
+
+\begin_layout Standard
+For:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+\mu_{a}=0.001\frac{1}{mm}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+\mu_{s}=0.1\frac{1}{mm}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+\mu_{a,rect}=0.01\frac{1}{mm}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+g=0.9
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+We got:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+\mu_{eff,expected}=0.0057\frac{1}{mm}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+\mu_{eff,regression}=0.097\frac{1}{mm}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+This does not follow what we expect
+\end_layout
+
+\begin_layout Section*
+Test B
+\end_layout
+
+\begin_layout Standard
+Using values for skin taken from:
+\end_layout
+
+\begin_layout Standard
+https://link.springer.com/article/10.1007/s10765-019-2515-3
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+\mu_{a}=0.1\frac{1}{mm}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+\mu_{s}=10\frac{1}{mm}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+\mu_{a,rect}=0.3\frac{1}{mm}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+g=0.9
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+We got:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+\mu_{eff,expected}=0.574\frac{1}{mm}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+\mu_{eff,regression}=0.528\frac{1}{mm}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Section*
+Test C
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+\mu_{a}=0.5\frac{1}{mm}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+\mu_{s}=10\frac{1}{mm}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+\mu_{a,rect}=1.5\frac{1}{mm}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+g=0.9
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+We got:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+\mu_{eff,expected}=0.574\frac{1}{mm}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+\mu_{eff,regression}=0.528\frac{1}{mm}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection*
+D in 2D - 
+\begin_inset Quotes eld
+\end_inset
+
+Circular
+\begin_inset Quotes erd
+\end_inset
+
+ Harmonics
+\end_layout
+
+\begin_layout Standard
+Are just fourier series.
+ We want to find the coefficients for the first 3.
+ We will find by:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+1=\intop_{0}^{2\pi}Y^{2}d\theta
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+\Rightarrow Y_{1}=\frac{1}{\sqrt{2\pi}}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+Y_{2}\propto\sin\left(\theta\right)
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+Y_{3}\propto\cos\left(\theta\right)
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+\intop_{0}^{2\pi}\cos^{2}\theta d\theta=\intop_{0}^{2\pi}\sin^{2}\theta d\theta=\pi
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Therefore:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+Y_{1}=\frac{1}{\sqrt{2\pi}}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+Y_{2}=\frac{1}{\sqrt{\pi}}\sin\left(\theta\right)
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+Y_{3}=\frac{1}{\sqrt{\pi}}\cos\left(\theta\right)
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Now I have 
+\begin_inset Formula $I_{d}=a_{3}Y_{1}+a_{2}Y_{2}+a_{1}Y_{3}$
+\end_inset
+
+, and I have 
+\begin_inset Formula $I$
+\end_inset
+
+ which is in the base of 
+\begin_inset Formula $Y_{i}$
+\end_inset
+
+ too:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+I=\sum a_{i}Y_{i}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Thus, in order to find 
+\begin_inset Formula $a_{i}$
+\end_inset
+
+:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+\intop_{0}^{2\pi}I\cdot Y_{i}d\phi=a_{i}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Thus:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+\intop_{0}^{2\pi}I\cdot\frac{1}{\sqrt{2\pi}}d\phi=\frac{1}{\sqrt{2\pi}}\intop_{0}^{2\pi}Id\phi=\frac{1}{\sqrt{2\pi}}U_{0}=a_{1}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+\intop_{0}^{2\pi}I\cdot\frac{1}{\sqrt{\pi}}\sin\left(\theta\right)d\phi=\frac{1}{\sqrt{\pi}}\intop_{0}^{2\pi}I\sin\left(\theta\right)d\phi=\frac{1}{\sqrt{\pi}}J_{y}=a_{2}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+\intop_{0}^{2\pi}I\cdot\frac{1}{\sqrt{\pi}}\cos\left(\theta\right)d\phi=\frac{1}{\sqrt{\pi}}\intop_{0}^{2\pi}I\cos\left(\theta\right)d\phi=\frac{1}{\sqrt{\pi}}J_{x}=a_{3}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Thus, comparing 
+\begin_inset Formula $I_{d}$
+\end_inset
+
+ to 
+\begin_inset Formula $I$
+\end_inset
+
+:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+I_{d}=\frac{1}{\sqrt{2\pi}}U_{0}\cdot\frac{1}{\sqrt{2\pi}}+\frac{1}{\sqrt{\pi}}J_{y}\sin\theta+\frac{1}{\sqrt{\pi}}J_{x}\cos\theta
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+=\frac{1}{2\pi}U_{0}+\frac{1}{\pi}J\cdot\hat{s}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Therefore:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+D=\frac{1}{2\left(\mu_{a}+\mu_{s}'\right)}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\end_body
+\end_document
