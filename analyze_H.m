@@ -1,4 +1,4 @@
-function analyze_H(H,X,Y,Z,mua,mus,g,cutoff,cutoff_end)
+function analyze_H(H,X,Y,Z,mua,mus,g,cutoff,cutoff_end,name)
 %% Find mu_eff theoretical
 H_mid = H(Z==0 & Y==0);
 x_arr = X(1,:,1);
@@ -68,7 +68,7 @@ plot(x_arr(cutoff:cutoff_end), full1d_reg_energy(cutoff:cutoff_end), "DisplayNam
 title("Absorbtion for Different Regressions")
 xlabel("Depth [mm]")
 legend()
-
+title(["Comparison of Absorbtion for Different Reconstructions ", name])
 
 
 figure;
@@ -81,6 +81,7 @@ hold on
 line([x_arr(1)+(cutoff_end-1)*dx x_arr(1)+(cutoff_end-1)*dx], ylim, 'Color', 'r', 'LineStyle', '--', 'LineWidth', 2);
 xlabel("Depth [mm]")
 legend()
+title(["Absorbtion in middle ", name])
 
 figure;
 slice(X, Y, Z, H, 0, 0, 0);
@@ -89,6 +90,7 @@ ylabel('y [mm]');
 zlabel('z [mm]');
 view(315,25);
 hold
+title(["Absorbtion ", name])
 
 snapnow;
 

@@ -37,7 +37,7 @@ solution = ValoMC(vmcmesh, vmcmedium, vmcboundary, options);
 cutoff = 25;
 cutoff_end = 75;
 H = vmcmedium.absorption_coefficient .* solution.grid_fluence*1e6;
-analyze_H(H,X,Y,Z,mua,mus,g,cutoff,cutoff_end)
+analyze_H(H,X,Y,Z,mua,mus,g,cutoff,cutoff_end, "ValoMC")
 
 
 %% k-wave simulation
