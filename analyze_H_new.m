@@ -1,18 +1,10 @@
-function analyze_H(H,X,Y,Z,mua,mus,g,cutoff,cutoff_end,name)
+function analyze_H_new(H,X,Y,Z,mua,mus,g,cutoff,cutoff_end,name)
 %% Find mu_eff theoretical
 H_mid = H(Z==0 & Y==0);
 x_arr = X(1,:,1);
 dx = abs(x_arr(2)-x_arr(1));
 mu_expected = sqrt(3*mua*(mua+(1-g)*mus));
 
-%% full regression 1d
-ft = fittype('fullfitfunc(x, mu_eff, D, a)');
-[full1d_parameters,gof] = fit(x_arr(cutoff:cutoff_end)',H_mid(cutoff:cutoff_end),ft);
-full1d_reg_energy = fullfitfunc_1d(x_arr, full1d_parameters.mu_eff, full1d_parameters.D, full1d_parameters.a);
-%% full regression
-ft = fittype('fullfitfunc(x, mu_eff, D, a)');
-[full_parameters,gof] = fit(x_arr(cutoff:cutoff_end)',H_mid(cutoff:cutoff_end),ft);
-full_reg_energy = fullfitfunc(x_arr, full_parameters.mu_eff, full_parameters.D, full_parameters.a);
 
 %% single exponent regression
 
@@ -31,40 +23,34 @@ relevant_idx = (Z<=radius & Y<=radius & Z>=-radius & Y>=-radius ...
     & X<=cutoff_end_x & X>=cutoff_x);
 x_3d_arr = X(relevant_idx)';
 H_3d = H(relevant_idx);
-lm_3d = fitlm(x_3d_arr, log(H_3d));
-intercept_3d = lm_3d.Coefficients.Estimate(1);
-mu_reg_3d = -lm_3d.Coefficients.Estimate(2);
-simple_reg_3d_energy = exp(-mu_reg_3d*x_arr+ intercept_3d);
+ft = fittype('exp(-mu_eff*x+a);');
+[simple_3d_parameters,full_gof] = fit(x_arr(cutoff:cutoff_end)',H_3d(cutoff:cutoff_end),ft);
+simple_reg_3d_energy = exp(-simple_3d_parameters.mu_eff*x_arr+ simple_3d_parameters.a);
 
 %% simple linear regression
-lm = fitlm(x_arr(cutoff:cutoff_end), log(H_mid(cutoff:cutoff_end)));
-intercept = lm.Coefficients.Estimate(1);
-mu_reg = -lm.Coefficients.Estimate(2);
-simple_reg_energy = exp(-mu_reg*x_arr+ intercept);
+ft = fittype('exp(-mu_eff*x+a);');
+[simple_parameters,full_gof] = fit(x_arr(cutoff:cutoff_end)',H_mid(cutoff:cutoff_end),ft);
+simple_reg_energy = exp(-simple_parameters.mu_eff*x_arr+ simple_parameters.a);
 
 %% regression comparisons
 
-fprintf("mu from full regression %d\n", full_parameters.mu_eff)
-fprintf("mu from full 1d regression %d\n", full1d_parameters.mu_eff)
-fprintf("mu from single exp regression %d\n", single_parameters.mu_eff)
+
+
 fprintf("mu from ground truth %d\n", mu_expected)
-fprintf("mu from simple linear regression %d\n", mu_reg)
-fprintf("mu from simple 3d linear regression %d\n", mu_reg_3d)
+fprintf("mu from simple linear regression %d\n", simple_parameters.mu_eff)
+fprintf("mu from simple 3d linear regression %d\n", simple_3d_parameters.mu_eff)
+fprintf("mu from single exp regression %d\n", single_parameters.mu_eff)
 
 
 
 figure;
 plot(x_arr(cutoff:cutoff_end), H_mid(cutoff:cutoff_end), "DisplayName","Real Data")
 hold on
-plot(x_arr(cutoff:cutoff_end), full_reg_energy(cutoff:cutoff_end), "DisplayName","Full Regression")
-hold on
-plot(x_arr(cutoff:cutoff_end), single_reg_energy(cutoff:cutoff_end), "DisplayName","Single Exp Regression")
-hold on
 plot(x_arr(cutoff:cutoff_end), simple_reg_energy(cutoff:cutoff_end), "DisplayName","Linear Regression")
 hold on
 plot(x_arr(cutoff:cutoff_end), simple_reg_3d_energy(cutoff:cutoff_end), "DisplayName","Linear 3D Regression")
 hold on
-plot(x_arr(cutoff:cutoff_end), full1d_reg_energy(cutoff:cutoff_end), "DisplayName","Full 1D Regression")
+plot(x_arr(cutoff:cutoff_end), single_reg_energy(cutoff:cutoff_end), "DisplayName","Single Exp Regression")
 title("Absorbtion for Different Regressions")
 xlabel("Depth [mm]")
 legend()

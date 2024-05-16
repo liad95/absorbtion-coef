@@ -1,9 +1,10 @@
-function analyze_H(H,X,Y,Z,mua,mus,g,cutoff,cutoff_end,name)
+function analyze_H_2d(H,X,Y,mua,mus,g,cutoff,cutoff_end,name)
 %% Find mu_eff theoretical
-H_mid = H(Z==0 & Y==0);
-x_arr = X(1,:,1);
+H_mid = H(Y==0);
+x_arr = X(1,:);
+y_arr = Y(:,1);
 dx = abs(x_arr(2)-x_arr(1));
-mu_expected = sqrt(3*mua*(mua+(1-g)*mus));
+mu_expected = sqrt(2*mua*(mua+(1-g)*mus));
 
 %% full regression 1d
 ft = fittype('fullfitfunc(x, mu_eff, D, a)');
@@ -23,18 +24,18 @@ single_reg_energy = singleexpfitfunc(x_arr, single_parameters.mu_eff, single_par
 % Dont understand why we get the mu in negative. Maybe because of the
 % absolute value?
 
-%% simple linear regression 3D
+%% simple linear regression 2D
 cutoff_x = x_arr(1)+(cutoff-1)*dx;
 cutoff_end_x = x_arr(1)+(cutoff_end-1)*dx;
 radius = 3;
-relevant_idx = (Z<=radius & Y<=radius & Z>=-radius & Y>=-radius ...
+relevant_idx = (Y<=radius & Y>=-radius ...
     & X<=cutoff_end_x & X>=cutoff_x);
-x_3d_arr = X(relevant_idx)';
-H_3d = H(relevant_idx);
-lm_3d = fitlm(x_3d_arr, log(H_3d));
-intercept_3d = lm_3d.Coefficients.Estimate(1);
-mu_reg_3d = -lm_3d.Coefficients.Estimate(2);
-simple_reg_3d_energy = exp(-mu_reg_3d*x_arr+ intercept_3d);
+x_2d_arr = X(relevant_idx)';
+H_2d = H(relevant_idx);
+lm_2d = fitlm(x_2d_arr, log(H_2d));
+intercept_2d = lm_2d.Coefficients.Estimate(1);
+mu_reg_2d = -lm_2d.Coefficients.Estimate(2);
+simple_reg_2d_energy = exp(-mu_reg_2d*x_arr+ intercept_2d);
 
 %% simple linear regression
 lm = fitlm(x_arr(cutoff:cutoff_end), log(H_mid(cutoff:cutoff_end)));
@@ -49,7 +50,7 @@ fprintf("mu from full 1d regression %d\n", full1d_parameters.mu_eff)
 fprintf("mu from single exp regression %d\n", single_parameters.mu_eff)
 fprintf("mu from ground truth %d\n", mu_expected)
 fprintf("mu from simple linear regression %d\n", mu_reg)
-fprintf("mu from simple 3d linear regression %d\n", mu_reg_3d)
+fprintf("mu from simple 2d linear regression %d\n", mu_reg_2d)
 
 
 
@@ -62,7 +63,7 @@ plot(x_arr(cutoff:cutoff_end), single_reg_energy(cutoff:cutoff_end), "DisplayNam
 hold on
 plot(x_arr(cutoff:cutoff_end), simple_reg_energy(cutoff:cutoff_end), "DisplayName","Linear Regression")
 hold on
-plot(x_arr(cutoff:cutoff_end), simple_reg_3d_energy(cutoff:cutoff_end), "DisplayName","Linear 3D Regression")
+plot(x_arr(cutoff:cutoff_end), simple_reg_2d_energy(cutoff:cutoff_end), "DisplayName","Linear 2D Regression")
 hold on
 plot(x_arr(cutoff:cutoff_end), full1d_reg_energy(cutoff:cutoff_end), "DisplayName","Full 1D Regression")
 title("Absorbtion for Different Regressions")
@@ -86,15 +87,11 @@ legend;
 title(["Absorbtion in middle ", name])
 
 figure;
-slice(X, Y, Z, H, 0, 0, 0);
+image(x_arr, y_arr, H);
 xlabel('x [mm]');
 ylabel('y [mm]');
-zlabel('z [mm]');
-view(315,25);
-hold
+colorbar;
 title(["Absorbtion ", name])
-
-snapnow;
 
 
 end
