@@ -64,8 +64,9 @@ medium.density = 1000;        % [kg/m^3]
 source.p0 = gruneisen_coef.*H_k_wave;
 
 % sensor
+sensor_size = 5;
 sensor.mask = zeros(Nx, Ny);
-sensor.mask(1,:) = 1;
+sensor.mask(1,1 + (Ny-sensor_size)/2:(Ny+sensor_size)/2) = 1;
 % input arguments
 input_args = {'PlotLayout', true, 'PlotPML', false, ...
     'DataCast', 'gpuArray-single', 'CartInterp', 'nearest', 'PMLInside', false, 'DataRecast', true};
@@ -74,7 +75,7 @@ input_args = {'PlotLayout', true, 'PlotPML', false, ...
 sensor_data = kspaceFirstOrder2D(kgrid, medium, source, sensor, input_args{:});
 
 % reshape sensor data to y, z, t
-sensor_data_rs = reshape(sensor_data, Ny, kgrid.Nt);
+sensor_data_rs = reshape(sensor_data, sensor_size, kgrid.Nt);
 
 %%
 % reconstruct the initial pressure
