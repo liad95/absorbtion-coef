@@ -1,0 +1,102 @@
+% function KwaveSmallSensor2d_correlatedVar(sigma)
+%% simulation parameters
+dx = 0.05;
+dy = 0.5;
+Nx = 201;
+Ny = 101;
+x_arr = -dx*(Nx-1)/2:dx:dx*(Nx-1)/2;
+y_arr = -dy*(Ny-1)/2:dy:dy*(Ny-1)/2;
+mua=0.01;
+mus=10;
+g = 0.9;
+sigma = 0.1;
+gruneisen_coef = 0.5;
+filter_sigma = 2; % Standard deviation for the Gaussian filter
+filter_size = 10; % Size of the filter
+%% create grid
+vmcmesh = createGridMesh(x_arr, y_arr); % function provided by ValoMC
+vmcmedium = createMedium(vmcmesh);
+[X,Y] = meshgrid(x_arr,y_arr); % Matlab function
+gaussianFilter = fspecial('gaussian', filter_size, filter_sigma);
+
+
+scattering_matrix = mus + mus.*sigma.*imfilter(randn(size(X)), gaussianFilter, 'replicate');
+negative_idx = scattering_matrix<0;
+scattering_matrix(negative_idx)=0;
+absorption_matrix = mua + mua.*sigma.*imfilter(randn(size(X)), gaussianFilter, 'replicate');
+negative_idx = absorption_matrix<0;
+absorption_matrix(negative_idx)=0;
+
+
+
+vmcmedium.scattering_coefficient = scattering_matrix;
+vmcmedium.absorption_coefficient = absorption_matrix;
+vmcmedium.scattering_anisotropy = g;        
+vmcmedium.refractive_index = 1;
+
+
+
+%% create source
+clear vmcboundary;
+vmcboundary = createBoundary(vmcmesh, vmcmedium);
+lightsource = findBoundaries(vmcmesh, 'direction', [-5.5 0 ], [-4.5 0 ], 49);
+vmcboundary.lightsource(lightsource) = {'direct'};
+options.photon_count = 1e8;
+solution = ValoMC(vmcmesh, vmcmedium, vmcboundary, options);
+
+%% Regression
+
+cutoff = 30;
+cutoff_end = 90;
+H = vmcmedium.absorption_coefficient .* solution.grid_fluence*1e6;
+% H = load(['VarResults\H_var_', num2str(sigma)]).H;
+analyze_H_2d_print(H,X,Y,mua,mus,g,cutoff,cutoff_end, "ValoMC", sigma)
+save(['VarResults\H_large_var_', num2str(sigma)], 'H')
+
+%% k-wave simulation
+
+H_k_wave = permute(H, [2,1]);
+
+% p0
+kgrid = kWaveGrid(Nx, dx*1e-3, Ny, dy*1e-3);
+medium.sound_speed = 1500;    % [m/s]
+medium.density = 1000;        % [kg/m^3]
+source.p0 = gruneisen_coef.*H_k_wave;
+
+% sensor
+sensor_size = 5;
+sensor.mask = zeros(Nx, Ny);
+sensor.mask(1,1 + (Ny-sensor_size)/2:(Ny+sensor_size)/2) = 1;
+% input arguments
+input_args = {'PlotLayout', true, 'PlotPML', false, ...
+    'DataCast', 'gpuArray-single', 'CartInterp', 'nearest', 'PMLInside', false, 'DataRecast', true};
+
+% run the simulation
+sensor_data = kspaceFirstOrder2D(kgrid, medium, source, sensor, input_args{:});
+
+% reshape sensor data to y, z, t
+sensor_data_rs = reshape(sensor_data, sensor_size, kgrid.Nt);
+
+%%
+% reconstruct the initial pressure
+p_xy = kspaceLineRecon(sensor_data_rs, kgrid.dy, kgrid.dt, ...
+    medium.sound_speed, 'DataOrder', 'yt', 'PosCond', true, 'Plot', true);
+
+
+
+% define a second k-space grid using the dimensions of p_xyz
+[Nx_recon, Ny_recon] = size(p_xy);
+kgrid_recon = kWaveGrid(Nx_recon, kgrid.dt * medium.sound_speed, Ny_recon, dy);
+
+% resample p_xyz to be the same size as source.p0
+p_xy_rs = interp2(kgrid_recon.y, kgrid_recon.x - min(kgrid_recon.x(:)), p_xy, kgrid.y, kgrid.x - min(kgrid.x(:)));
+
+
+%% K-Wave Regression
+H_k_wave_recon = permute(p_xy_rs, [2,1])./gruneisen_coef;
+cutoff = 30;
+cutoff_end = 90;
+analyze_H_2d_print(H_k_wave_recon,X,Y,mua,mus,g,cutoff,cutoff_end, "K-Wave", sigma)
+save(['VarResults\H_recon_large_var_', num2str(sigma)], 'H_k_wave_recon')
+save(['VarResults\Sensor_Data_large_var_', num2str(sigma)], 'sensor_data')
+

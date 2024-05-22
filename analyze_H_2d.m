@@ -4,26 +4,14 @@ H_mid = H(Y==0);
 x_arr = X(1,:);
 y_arr = Y(:,1);
 dx = abs(x_arr(2)-x_arr(1));
-mu_expected = sqrt(2*mua*(mua+(1-g)*mus));
+mu_expected_2d = sqrt(2*mua*(mua+(1-g)*mus));
+mu_expected_3d = sqrt(3*mua*(mua+(1-g)*mus));
 
-%% full regression 1d
-ft = fittype('fullfitfunc(x, mu_eff, D, a)');
-[full1d_parameters,gof] = fit(x_arr(cutoff:cutoff_end)',H_mid(cutoff:cutoff_end),ft);
-full1d_reg_energy = fullfitfunc_1d(x_arr, full1d_parameters.mu_eff, full1d_parameters.D, full1d_parameters.a);
-%% full regression
-ft = fittype('fullfitfunc(x, mu_eff, D, a)');
-[full_parameters,gof] = fit(x_arr(cutoff:cutoff_end)',H_mid(cutoff:cutoff_end),ft);
-full_reg_energy = fullfitfunc(x_arr, full_parameters.mu_eff, full_parameters.D, full_parameters.a);
+%% find peaks
 
-%% single exponent regression
-
-ft = fittype('singleexpfitfunc(x, mu_eff, l, a)');
-[single_parameters,full_gof] = fit(x_arr(cutoff:cutoff_end)',H_mid(cutoff:cutoff_end),ft);
-single_reg_energy = singleexpfitfunc(x_arr, single_parameters.mu_eff, single_parameters.l, single_parameters.a);
-
-% Dont understand why we get the mu in negative. Maybe because of the
-% absolute value?
-
+[PKS,LOCS] = findpeaks(H_mid);
+dx = x_arr(2)-x_arr(1);
+z0 = LOCS*dx;
 %% simple linear regression 2D
 cutoff_x = x_arr(1)+(cutoff-1)*dx;
 cutoff_end_x = x_arr(1)+(cutoff_end-1)*dx;
@@ -45,27 +33,18 @@ simple_reg_energy = exp(-mu_reg*x_arr+ intercept);
 
 %% regression comparisons
 
-fprintf("mu from full regression %d\n", full_parameters.mu_eff)
-fprintf("mu from full 1d regression %d\n", full1d_parameters.mu_eff)
-fprintf("mu from single exp regression %d\n", single_parameters.mu_eff)
-fprintf("mu from ground truth %d\n", mu_expected)
+fprintf("mu from ground truth_3d %d\n", mu_expected_3d)
 fprintf("mu from simple linear regression %d\n", mu_reg)
 fprintf("mu from simple 2d linear regression %d\n", mu_reg_2d)
 
-
+fprintf("z0 is %d\n", z0)
 
 figure;
 plot(x_arr(cutoff:cutoff_end), H_mid(cutoff:cutoff_end), "DisplayName","Real Data")
 hold on
-plot(x_arr(cutoff:cutoff_end), full_reg_energy(cutoff:cutoff_end), "DisplayName","Full Regression")
-hold on
-plot(x_arr(cutoff:cutoff_end), single_reg_energy(cutoff:cutoff_end), "DisplayName","Single Exp Regression")
-hold on
 plot(x_arr(cutoff:cutoff_end), simple_reg_energy(cutoff:cutoff_end), "DisplayName","Linear Regression")
 hold on
 plot(x_arr(cutoff:cutoff_end), simple_reg_2d_energy(cutoff:cutoff_end), "DisplayName","Linear 2D Regression")
-hold on
-plot(x_arr(cutoff:cutoff_end), full1d_reg_energy(cutoff:cutoff_end), "DisplayName","Full 1D Regression")
 title("Absorbtion for Different Regressions")
 xlabel("Depth [mm]")
 legend()

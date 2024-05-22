@@ -473,6 +473,20 @@ U=\frac{1}{4\pi D}\left[\frac{e^{-\mu_{eff}r_{1}}}{r_{1}}-\frac{e^{-\mu_{eff}r_{
 \end_layout
 
 \begin_layout Standard
+\begin_inset Formula 
+\[
+S_{0}=\begin{cases}
+\delta\left(x\right) & \rho<R\\
+0 & else
+\end{cases}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
 Aside: When does 
 \begin_inset Formula $z_{0}=-z_{0}-2z_{b}$
 \end_inset
@@ -1050,6 +1064,819 @@ Therefore:
 \begin_inset Formula 
 \[
 D=\frac{1}{2\left(\mu_{a}+\mu_{s}'\right)}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Part*
+2D from 3D
+\end_layout
+
+\begin_layout Subsection*
+Diffusion approximation
+\end_layout
+
+\begin_layout Standard
+The 3D solution using the diffusion approximation is:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+U=\frac{1}{4\pi D}\left[\frac{e^{-\mu_{eff}\sqrt{\left(z-z_{0}\right)^{2}+\rho^{2}}}}{\sqrt{\left(z-z_{0}\right)^{2}+\rho^{2}}}-\frac{e^{-\mu_{eff}\sqrt{\left(z+z_{0}+2z_{b}\right)^{2}+\rho^{2}}}}{\sqrt{\left(z+z_{0}+2z_{b}\right)^{2}+\rho^{2}}}\right]
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+If we illuminate a half space, we will integrate on this:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+U_{1D}=\intop_{0}^{\infty}\intop_{0}^{2\pi}U\rho d\rho d\theta
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+=\intop_{0}^{\infty}\intop_{0}^{2\pi}\frac{1}{4\pi D}\left[\frac{e^{-\mu_{eff}\sqrt{\left(z-z_{0}\right)^{2}+\rho^{2}}}}{\sqrt{\left(z-z_{0}\right)^{2}+\rho^{2}}}-\frac{e^{-\mu_{eff}\sqrt{\left(z+z_{0}+2z_{b}\right)^{2}+\rho^{2}}}}{\sqrt{\left(z+z_{0}+2z_{b}\right)^{2}+\rho^{2}}}\right]\rho d\rho d\theta
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+=\frac{1}{4\pi D}\left[\intop_{0}^{\infty}\intop_{0}^{2\pi}\frac{e^{-\mu_{eff}\sqrt{\left(z-z_{0}\right)^{2}+\rho^{2}}}}{\sqrt{\left(z-z_{0}\right)^{2}+\rho^{2}}}\rho d\rho d\theta-\intop_{0}^{\infty}\intop_{0}^{2\pi}\frac{e^{-\mu_{eff}\sqrt{\left(z+z_{0}+2z_{b}\right)^{2}+\rho^{2}}}}{\sqrt{\left(z+z_{0}+2z_{b}\right)^{2}+\rho^{2}}}\rho d\rho d\theta\right]
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Let us solve:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+\intop_{0}^{\infty}\intop_{0}^{2\pi}\frac{e^{-\mu\sqrt{a^{2}+\rho^{2}}}}{\sqrt{a^{2}+\rho^{2}}}\rho d\rho d\theta=2\pi\intop_{0}^{\infty}\frac{e^{-\mu\sqrt{a^{2}+\rho^{2}}}}{\sqrt{a^{2}+\rho^{2}}}\rho d\rho
+\]
+
+\end_inset
+
+
+\begin_inset Formula 
+\[
+=2\pi\frac{e^{-\mu\left|a\right|}}{\mu}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Therefore:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+\frac{1}{4\pi D}\left[\intop_{0}^{\infty}\intop_{0}^{2\pi}\frac{e^{-\mu_{eff}\sqrt{\left(z-z_{0}\right)^{2}+\rho^{2}}}}{\sqrt{\left(z-z_{0}\right)^{2}+\rho^{2}}}\rho d\rho d\theta-\intop_{0}^{\infty}\intop_{0}^{2\pi}\frac{e^{-\mu_{eff}\sqrt{\left(z+z_{0}+2z_{b}\right)^{2}+\rho^{2}}}}{\sqrt{\left(z+z_{0}+2z_{b}\right)^{2}+\rho^{2}}}\rho d\rho d\theta\right]
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Box Boxed
+position "t"
+hor_pos "c"
+has_inner_box 1
+inner_pos "t"
+use_parbox 0
+use_makebox 0
+width "100col%"
+special "none"
+height "1in"
+height_special "totalheight"
+thickness "0.4pt"
+separation "3pt"
+shadowsize "4pt"
+framecolor "black"
+backgroundcolor "none"
+status open
+
+\begin_layout Plain Layout
+\begin_inset Formula 
+\[
+=\frac{1}{2\mu_{eff}D}\left[e^{-\mu_{eff}\left|z-z_{0}\right|}-e^{-\mu_{eff}\left|z+z_{0}+2z_{b}\right|}\right]
+\]
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Let us find the value of 
+\begin_inset Formula $z$
+\end_inset
+
+ where we get the maximum:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+\frac{d}{dz}U_{1d}=\frac{d}{dz}\frac{1}{2\mu_{eff}D}\left[e^{-\mu_{eff}\left|z-z_{0}\right|}-e^{-\mu_{eff}\left|z+z_{0}+2z_{b}\right|}\right]
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+\frac{1}{2\mu_{eff}D}\left[\frac{d}{dz}e^{-\mu_{eff}\left|z-z_{0}\right|}-\frac{d}{dz}e^{-\mu_{eff}\left|z+z_{0}+2z_{b}\right|}\right]
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+=\frac{1}{2\mu_{eff}D}\left[-\mu_{eff}\frac{z-z_{0}}{\left|z-z_{0}\right|}e^{-\mu_{eff}\left|z-z_{0}\right|}+\mu_{eff}\frac{z+z_{0}+2z_{b}}{\left|z+z_{0}+2z_{b}\right|}e^{-\mu_{eff}\left|z+z_{0}+2z_{b}\right|}\right]
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+=\frac{1}{2D}\left[\text{\text{sign}\left(z+z_{0}+2z_{b}\right)}e^{-\mu_{eff}\left|z+z_{0}+2z_{b}\right|}-\text{sign}\left(z-z_{0}\right)e^{-\mu_{eff}\left|z-z_{0}\right|}\right]
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+3 cases:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula $z>z_{0}>-z_{0}-2z_{b}$
+\end_inset
+
+:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+=\frac{1}{2D}\left[e^{-\mu_{eff}\left(z+z_{0}+2z_{b}\right)}-e^{-\mu_{eff}\left(z-z_{0}\right)}\right]
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+=\frac{1}{2D}e^{-\mu_{eff}\left(z-z_{0}\right)}\left[e^{-\mu_{eff}\left(2z_{0}+2z_{b}\right)}-1\right]<0
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula $z_{0}>-z_{0}-2z_{b}>z$
+\end_inset
+
+:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+\frac{1}{2D}\left[-e^{\mu_{eff}\left(z+z_{0}+2z_{b}\right)}+e^{\mu_{eff}\left(z-z_{0}\right)}\right]
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+=\frac{1}{2D}e^{\mu_{eff}\left(z-z_{0}\right)}\left[1-e^{\mu_{eff}\left(2z_{0}+2z_{b}\right)}\right]<0
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula $z_{0}>z>-z_{0}-2z_{b}$
+\end_inset
+
+:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+\frac{1}{2D}\left[e^{-\mu_{eff}\left|z+z_{0}+2z_{b}\right|}+e^{-\mu_{eff}\left|z-z_{0}\right|}\right]>0
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+At 
+\begin_inset Formula $-\infty$
+\end_inset
+
+ we get 
+\begin_inset Formula $0$
+\end_inset
+
+, and at a certain point we will be positive (energy must be), therefore
+ the maximum is at 
+\begin_inset Formula $z=z_{0}$
+\end_inset
+
+.
+ We recall:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+z_{0}=l'=\frac{1}{\left(\mu_{a}+\mu_{s}'\right)}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Thus, if we find the 
+\begin_inset Formula $\mu_{eff}$
+\end_inset
+
+ and 
+\begin_inset Formula $z_{0}$
+\end_inset
+
+:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+\frac{\mu_{eff}^{2}\cdot z_{0}}{3}=\left(\sqrt{3\mu_{a}\left(\mu_{a}+\mu_{s}'\right)}\right)^{2}\cdot\frac{1}{3\left(\mu_{a}+\mu_{s}'\right)}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+=\frac{3\mu_{a}\left(\mu_{a}+\mu_{s}'\right)}{3\left(\mu_{a}+\mu_{s}'\right)}=\mu_{a}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+And then:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+\frac{1}{z_{0}}-\frac{\mu_{eff}^{2}\cdot z_{0}}{3}=\mu_{a}+\mu_{s}'-\mu_{a}=\mu_{s}'
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection*
+How good is the 1D approximation
+\end_layout
+
+\begin_layout Standard
+We will ignore the boundaries, as they are larger than the illumination.
+ So, we will assume infinite slab, with finite illumination.
+ Therefore:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+\intop_{0}^{R}\intop_{0}^{2\pi}\frac{e^{-\mu\sqrt{a^{2}+\rho^{2}}}}{\sqrt{a^{2}+\rho^{2}}}\rho d\rho d\theta=2\pi\left(-\frac{e^{-\mu\sqrt{a^{2}+\rho^{2}}}}{\mu}\right)|_{0}^{R}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+=\frac{2\pi}{\mu}\left(e^{-\mu\left|a\right|}-e^{-\mu\sqrt{a^{2}+R^{2}}}\right)
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+=\frac{2\pi}{\mu}\left(e^{-\mu\left|a\right|}-e^{-\mu\left|a\right|\sqrt{1+\left(\frac{R}{a}\right)^{2}}}\right)
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+=\frac{2\pi}{\mu}e^{-\mu\left|a\right|}\left(1-e^{-\mu\left|a\right|\left(\sqrt{1+\left(\frac{R}{a}\right)^{2}}-1\right)}\right)
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+We will want 
+\begin_inset Formula $\sqrt{1+\left(\frac{R}{a}\right)^{2}}-1\approx0$
+\end_inset
+
+.
+ We will take 
+\begin_inset Formula $c$
+\end_inset
+
+ where 
+\begin_inset Formula $c<1$
+\end_inset
+
+:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+e^{-\mu\left|a\right|\left(\sqrt{1+\left(\frac{R}{a}\right)^{2}}-1\right)}<c
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+-\mu\left|a\right|\left(\sqrt{1+\left(\frac{R}{a}\right)^{2}}-1\right)<\ln\left(c\right)
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+\mu\left|a\right|\left(\sqrt{1+\left(\frac{R}{a}\right)^{2}}-1\right)>\ln\left(\frac{1}{c}\right)
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+\sqrt{1+\left(\frac{R}{a}\right)^{2}}>\frac{\ln\left(\frac{1}{c}\right)}{\mu\left|a\right|}+1
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+1+\left(\frac{R}{a}\right)^{2}>\left(\frac{\ln\left(\frac{1}{c}\right)}{\mu\left|a\right|}+1\right)^{2}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+\left(\frac{R}{a}\right)^{2}>\left(\frac{\ln\left(\frac{1}{c}\right)}{\mu\left|a\right|}+1\right)^{2}-1
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+\left(\frac{R}{a}\right)^{2}>\frac{\ln^{2}\left(\frac{1}{c}\right)}{\mu^{2}a^{2}}+\frac{2\ln\left(\frac{1}{c}\right)}{\mu\left|a\right|}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+R^{2}>\frac{\ln^{2}\left(\frac{1}{c}\right)}{\mu^{2}}+\frac{2\ln\left(\frac{1}{c}\right)}{\mu}\left|a\right|
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+If 
+\begin_inset Formula $\ddot{\mu=0.176\left[\frac{1}{mm}\right]}$
+\end_inset
+
+ and 
+\begin_inset Formula $\left|a\right|_{max}=10\left[mm\right]$
+\end_inset
+
+ we get:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+R^{2}>32.2\cdot\ln^{2}\left(\frac{1}{c}\right)+113.6\cdot\ln\left(\frac{1}{c}\right)
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+For 
+\begin_inset Formula $c=0.1$
+\end_inset
+
+ we get 
+\begin_inset Formula $R>20.7\left[mm\right]$
+\end_inset
+
+ and for 
+\begin_inset Formula $c=0.01$
+\end_inset
+
+ we get 
+\begin_inset Formula $R>34.7\left[mm\right]$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+This is the illumination radius needed.
+ We used 
+\begin_inset Formula $R=49\left[mm\right]$
+\end_inset
+
+.
+ 
+\end_layout
+
+\begin_layout Standard
+Practically we look at 
+\begin_inset Formula $\left|a\right|_{max}=5\left[mm\right]$
+\end_inset
+
+:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+R^{2}>32.2\cdot\ln^{2}\left(\frac{1}{c}\right)+56.8\cdot\ln\left(\frac{1}{c}\right)
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+For 
+\begin_inset Formula $c=0.1$
+\end_inset
+
+ we get 
+\begin_inset Formula $R>17.37\left[mm\right]$
+\end_inset
+
+ and for 
+\begin_inset Formula $c=0.01$
+\end_inset
+
+ we get 
+\begin_inset Formula $R>30.7\left[mm\right]$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Let us see the bounds, for 
+\begin_inset Formula $\left|a\right|=0$
+\end_inset
+
+ we are left with:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+R^{2}>32.2\cdot\ln^{2}\left(\frac{1}{c}\right)
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+For 
+\begin_inset Formula $c=0.1$
+\end_inset
+
+ we get 
+\begin_inset Formula $R>13\left[mm\right]$
+\end_inset
+
+ and for 
+\begin_inset Formula $c=0.01$
+\end_inset
+
+ we get 
+\begin_inset Formula $R>26.1\left[mm\right]$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Section*
+optimal R
+\end_layout
+
+\begin_layout Standard
+We have seen what happens when we look only at 1 exponent, but we recall
+ that we have 2.
+ Can we choose R so that only 1 will effect us?
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+U=\frac{2\pi}{\mu}e^{-\mu\left|a\right|}\left(1-e^{-\mu\left|a\right|\left(\sqrt{1+\left(\frac{R}{a}\right)^{2}}-1\right)}\right)-\frac{2\pi}{\mu}e^{-\mu\left|b\right|}\left(1-e^{-\mu\left|b\right|\left(\sqrt{1+\left(\frac{R}{b}\right)^{2}}-1\right)}\right)
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+\Delta U=U-\frac{2\pi}{\mu}e^{-\mu\left|a\right|}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+=\frac{2\pi}{\mu}\left[-e^{-\mu\left|a\right|\left(\sqrt{1+\left(\frac{R}{a}\right)^{2}}\right)}-e^{-\mu\left|b\right|}\left(1-e^{-\mu\left|b\right|\left(\sqrt{1+\left(\frac{R}{b}\right)^{2}}-1\right)}\right)\right]
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Applying a derivative on R.
+ We have seen:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+\frac{d}{d\rho}-\frac{2\pi}{\mu}e^{-\mu\sqrt{a^{2}+\rho^{2}}}=\frac{e^{-\mu\sqrt{a^{2}+\rho^{2}}}}{\sqrt{a^{2}+\rho^{2}}}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+\Rightarrow\frac{2\pi}{\mu}\left[\frac{e^{-\mu\left|a\right|\left(\sqrt{1+\left(\frac{R}{a}\right)^{2}}\right)}}{\sqrt{a^{2}+R^{2}}}-\frac{e^{-\mu\left|b\right|\left(\sqrt{1+\left(\frac{R}{b}\right)^{2}}\right)}}{\sqrt{b^{2}+R^{2}}}\right]=0
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+\frac{e^{-\mu\sqrt{a^{2}+R^{2}}}}{\sqrt{a^{2}+R^{2}}}=\frac{e^{-\mu\sqrt{b^{2}+R^{2}}}}{\sqrt{b^{2}+R^{2}}}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+\intop_{0}^{R}\intop_{0}^{\pi}G\left(x,\rho\right)\rho d\rho d\theta
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Part*
+Solving RTE for direct light for finding maximum
+\end_layout
+
+\begin_layout Standard
+We can maybe use the solution for 1-D using Legendre polynomials, and then
+ finding the maximum from that.
+\end_layout
+
+\begin_layout Standard
+We can also try something with the integral form.
+\end_layout
+
+\begin_layout Standard
+file:///C:/Users/liadm/Downloads/ecbo-2013-879908.pdf
+\end_layout
+
+\begin_layout Part*
+2 Slabs boundary solution
+\end_layout
+
+\begin_layout Standard
+Let us assume we have 2 slabs, with the 
+\begin_inset Formula $\mu_{a1},\mu_{a2},\mu_{s1},\mu_{s2}$
+\end_inset
+
+.
+ We assume they have the same refraction index.
+ In order to sew the solutions we will apply continuity.
+ We will assume that we will get 1 green function.
+ For simplicity we will look a the 1d solution:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+\frac{1}{2\mu_{eff}D}\left[e^{-\mu_{eff}\left|z-z_{0}\right|}-e^{-\mu_{eff}\left|z+z_{0}+2D\right|}\right]=\frac{e^{-\mu_{eff}'\left|r-r'\right|}}{\mu_{eff}'}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+\frac{\mu_{eff}'}{2\mu_{eff}D}\left[e^{-\mu_{eff}\left|z-z_{0}\right|}-e^{-\mu_{eff}\left|z+z_{0}+2D\right|}\right]=e^{-\mu_{eff}'\left|r-r'\right|}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+\mu_{eff}'\left|r-r'\right|=\ln\left(\frac{\mu_{eff}'}{2\mu_{eff}D}\left[e^{-\mu_{eff}\left|z-z_{0}\right|}-e^{-\mu_{eff}\left|z+z_{0}+2D\right|}\right]\right)
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+\left|r-r'\right|=\frac{\ln\left(\frac{\mu_{eff}'}{2\mu_{eff}D}\left[e^{-\mu_{eff}\left|z-z_{0}\right|}-e^{-\mu_{eff}\left|z+z_{0}+2D\right|}\right]\right)}{\mu_{eff}'}\approx\frac{\ln\left(\frac{\mu_{eff}'}{2\mu_{eff}D}e^{-\mu_{eff}\left|z-z_{0}\right|}\right)}{\mu_{eff}'}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+\left|r-r'\right|=\frac{\ln\left(\frac{\mu_{eff}'}{2\mu_{eff}D}\right)-\mu_{eff}\left|z-z_{0}\right|}{\mu_{eff}'}
 \]
 
 \end_inset

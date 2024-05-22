@@ -1,0 +1,5 @@
+mu from ground truth 3d 1.740690e-01
+mu from simple linear regression NaN
+mu from simple 2d linear regression NaN
+expected mu 3d 1.611067e-01
+std mu 3d 6.899363e-02

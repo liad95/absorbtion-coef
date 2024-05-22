@@ -1,0 +1,6 @@
+expected mu 3d 1.735834e-01
+std mu 3d 1.221636e-02
+expected mu 3d 1.735194e-01
+std mu 3d 1.235507e-02
+expected mu 3d 1.736470e-01
+std mu 3d 1.241743e-02
